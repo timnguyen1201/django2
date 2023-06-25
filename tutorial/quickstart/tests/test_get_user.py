@@ -9,8 +9,9 @@ class MeApiTests(APITestCase):
         self.client.force_authenticate(user=user)
         response = self.client.get(f'/me/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data), 2)
         self.assertIn('email', response.data)
+        self.assertIn('username', response.data)
 
     def test_not_auth_user_get(self):
         User.objects.create(username="username", email="tim@gmail.com")
