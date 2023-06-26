@@ -2,15 +2,14 @@ from rest_framework import generics, serializers, permissions
 from rest_framework.response import Response
 
 
-class MeSerializer(serializers.Serializer):
+class MeCreateUser(serializers.Serializer):
     email = serializers.CharField()
     username = serializers.CharField()
 
 
-class MeApi(generics.GenericAPIView):
+class MeCreateApi(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = MeSerializer
 
-    def get(self, request):
-        serializer = self.get_serializer(request.user)
+    def create_data(self, request):
+        serializer = self.post(request.user)
         return Response(serializer.data)

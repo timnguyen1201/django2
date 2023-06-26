@@ -7,10 +7,10 @@ class MeSerializer(serializers.Serializer):
     username = serializers.CharField()
 
 
-class MeApi(generics.GenericAPIView):
+class MeApi(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = MeSerializer
 
-    def get(self, request):
-        serializer = self.get_serializer(request.user)
+    def delete_data(self, request):
+        serializer = self.delete(request.user)
         return Response(serializer.data)
